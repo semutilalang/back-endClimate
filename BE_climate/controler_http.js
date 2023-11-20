@@ -323,8 +323,8 @@ module.exports = {
    // daily rainfall accumulation
     async getDailyRainfallAccumulation(req, res) {
         try {
-            // // timer 24jam 
-            // await new Promise(resolve => setTimeout(resolve, 24 * 60 * 60 * 1000));
+            // timer 24jam 
+            await new Promise(resolve => setTimeout(resolve, 24 * 60 * 60 * 1000));
             // Ambil data curah hujan dalam 1 jam terakhir
             const now = new Date();
             const oneDayAgo = new Date(now - 24 * 60 * 60 * 1000); // Waktu 24 jam yang lalu
@@ -648,8 +648,8 @@ module.exports = {
     // daily rainfall accumulation 2
     async getDailyRainfallAccumulation2(req, res) {
         try {
-            // // timer 24jam 
-            // await new Promise(resolve => setTimeout(resolve, 24 * 60 * 60 * 1000));
+            // timer 24jam 
+            await new Promise(resolve => setTimeout(resolve, 24 * 60 * 60 * 1000));
             // Ambil data curah hujan dalam 1 jam terakhir
             const now = new Date();
             const oneDayAgo = new Date(now - 24 * 60 * 60 * 1000); // Waktu 24 jam yang lalu
