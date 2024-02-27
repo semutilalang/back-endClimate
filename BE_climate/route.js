@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const climate_http = require('./controler_http.js');
+
 // 
 router.get('/climate/latest', climate_http.getDataclimate);// route request to respond lastest 100 data microclimate_petengoran
 router.get('/climate/latest2', climate_http.getDataclimate2);// route request to respond lastest 100 data microclimate_petengoran2
@@ -21,6 +22,7 @@ router.get('/climate/chart/C2H5OH', climate_http.getDataChartC2H5OH);// route re
 router.get('/climate/chart/H2', climate_http.getDataChartH2);// route req to res Chart H2
 router.get('/climate/chart/NH3', climate_http.getDataChartNH3);// route req to res Chart NH3
 router.get('/climate/chart/NO2', climate_http.getDataChartNO2);// route req to res Chart NO2
+
 router.get('/climate/chart/temperature_2', climate_http.getDataCharttemperature2); // route req to get Charttemperature 2
 router.get('/climate/chart/humidity_2', climate_http.getDataCharthumidity2);// route req to res Chart humidity 2
 router.get('/climate/chart/rainfall_2', climate_http.getDataCharrainfall2); // // route req to res Chart rainfall 2
@@ -41,6 +43,18 @@ router.get('/climate/accumulation/DailyRainfallAccumulation', climate_http.getDa
 router.get('/climate/accumulation/getRainfallAccumulation_2', climate_http.getRainfallAccumulation2);// route req to res get Rainfall Accumulation 2
 router.get('/climate/accumulation/getDailyRainfallAccumulation_2', climate_http.getDailyRainfallAccumulation2);// route req to res get Daily Rainfall Accumulation 2
 
-module.exports = router;
 
+
+// //
+router.get('/climate/sevenday1', climate_http.getDataclimateseven1);//route req to res get Dataclimateseven1
+router.get('/climate/sevenday2', climate_http.getDataclimateseven2);//route req to res get Dataclimateseven2
+
+
+
+// //
+// router.get('/climate/interaktiveD', climate_http.getDataByTypedaily);//route for interaktive timestamp stasiun1
+//router.get('/climate/interaktive', climate_http.get_byTime_obj_2);//route for interaktive timestamp stasiun2
+
+module.exports = router;
+ 
 

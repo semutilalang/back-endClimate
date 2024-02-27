@@ -7,15 +7,15 @@ const http = require('http');
 const https = require('https');
 require('dotenv').config()
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/vps.isi-net.org/privkey.pem','utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/vps.isi-net.org/cert.pem','utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/vps.isi-net.org/chain.pem','utf8');
+// const privateKey = fs.readFileSync('/etc/letsencrypt/live/vps.isi-net.org/privkey.pem','utf8');
+// const certificate = fs.readFileSync('/etc/letsencrypt/live/vps.isi-net.org/cert.pem','utf8');
+// const ca = fs.readFileSync('/etc/letsencrypt/live/vps.isi-net.org/chain.pem','utf8');
 
-const credentials = {
-	key: privateKey,
-	cert: certificate,
-  ca: ca
-};
+// const credentials = {
+// 	key: privateKey,
+// 	cert: certificate,
+//   ca: ca
+// };
 
 const api = express();
 api.use(bodyParser.urlencoded({ extended: false }))
@@ -77,11 +77,11 @@ api.use('/', cors(), (req, res) => {
 });  
 
 // Starting both http & https servers
-// const httpServer = http.createServer(api);
-const httpsServer = https.createServer(credentials, api);
+const httpServer = http.createServer(api);
+// const httpsServer = https.createServer(credentials, api);
 //const httpsServer = https.createServer(credentials, api);
 //
-httpsServer.listen(process.env.API_PORT, () => {
+httpServer.listen(process.env.API_PORT, () => {
 	console.log(`HTTP REST-API running on port ${process.env.API_PORT}`);
 });
 

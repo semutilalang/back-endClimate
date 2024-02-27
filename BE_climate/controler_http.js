@@ -16,7 +16,7 @@ const dbase_rest= new Pool({
     password:process.env.DB_PASSWORD,
     database:process.env.DB_climate
 })
-
+  
 dbase_rest.connect();
 module.exports = {
 
@@ -357,6 +357,51 @@ module.exports = {
     
     },
 
+    // sevenday 1
+    async getDataclimateseven1(req, res) {
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1; // Mendapatkan bulan saat ini
+        const currentYear = currentDate.getFullYear();
+        // Menghitung tanggal 7 hari yang lalu
+        const sevenDaysAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+        // Menggunakan kondisi WHERE untuk memfilter data
+        const query = `
+            SELECT 
+                to_char(timestamp, 'DD-MM-YYYY HH24:MI:SS') as time,  
+                temperature, 
+                humidity, 
+                rainfall, 
+                wind_direction,
+                wind_direction_degrees,
+                wind_speed,
+                water_temperature,
+                irradiation,
+                CO,
+                CH4,
+                C2H5OH,
+                H2,
+                NH3,
+                NO2
+            FROM 
+            microclimate_petengoran1
+            WHERE
+            timestamp >= $1
+            ORDER BY 
+                id DESC 
+            LIMIT 1008 
+        `;
+    
+        const data = await dbase_rest.query(query, [sevenDaysAgo]);
+    
+        res.status(200);
+        res.send({
+            count: data.rowCount,
+            result: data.rows,
+        });
+    
+        console.log("[REST-API climate] GET: 1008 NEW DATA FOR TABLE");
+        return data;
+    },
 
 
 
@@ -679,6 +724,51 @@ module.exports = {
             console.error("Error in getRainfallAccumulation:", error);
             res.status(500).send({ error: "Internal Server Error" });
         }
+    },
+
+    
+    // seven day 2
+    async getDataclimateseven2(req, res) {
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1; // Mendapatkan bulan saat ini
+        const currentYear = currentDate.getFullYear();
+        // Menghitung tanggal 7 hari yang lalu
+        const sevenDaysAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+        // Menggunakan kondisi WHERE untuk memfilter data
+        const query = `
+            SELECT 
+                to_char(timestamp, 'DD-MM-YYYY HH24:MI:SS') as time, 
+                temperature, 
+                humidity, 
+                rainfall, 
+                wind_direction,
+                wind_direction_degrees,
+                wind_speed,
+                irradiation,
+                CO,
+                CH4,
+                C2H5OH,
+                H2,
+                NH3,
+                NO2
+            FROM 
+            microclimate_petengoran2
+            WHERE 
+                timestamp >= $1
+            ORDER BY 
+                time DESC 
+            LIMIT 1008
+        `;
+    
+        const data = await dbase_rest.query(query, [sevenDaysAgo]);
+    
+        res.status(200);
+        res.send({
+            count: data.rowCount,
+            result: data.rows,
+        });
+    
+        console.log("[REST-API climate] GET: 15 NEW DATA FOR TABLE");
     },
 
 
